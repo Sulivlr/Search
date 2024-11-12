@@ -1,4 +1,6 @@
+
 const MovieForm = () => {
+
     return (
         <div className="container mt-3">
             <form className="input-group">
