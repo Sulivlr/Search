@@ -1,13 +1,19 @@
 export interface Movie {
     id: string;
     name: string;
-    image: string;
+    image: {
+        medium: string;
+        large: string;
+    };
     description: string;
 }
 
 export interface ApiMovie {
     name: string;
-    image: string;
+    image: {
+        medium: string;
+        large: string;
+    };
     description: string;
 }
 

@@ -1,14 +1,14 @@
 import {ApiMovie, Movie} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 
-interface MovieState {
+interface MoviesState {
     item: Movie[],
     fetchLoading: boolean,
     isSearching: boolean,
     selectMovie: ApiMovie | null
 }
 
-const initialState: MovieState = {
+const initialState: MoviesState = {
     item: [],
     fetchLoading: false,
     isSearching: false,
@@ -16,7 +16,7 @@ const initialState: MovieState = {
 };
 
 const movieSlice = createSlice({
-   name: "movie",
+   name: "movies",
    initialState,
    reducers: {},
    extraReducers: () => {}
