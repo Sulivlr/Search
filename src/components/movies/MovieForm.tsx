@@ -45,6 +45,7 @@ const MovieForm = () => {
 
                             {movies.map((movie) => (
                                 <li
+                                    style={{cursor: "pointer"}}
                                     onClick={() => onClick(movie.show.id)}
                                     key={movie.show.id}>
                                     <h5>{movie.show.name}</h5>
