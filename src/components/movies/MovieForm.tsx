@@ -42,6 +42,7 @@ const MovieForm = () => {
                 ) : (
                     <div className="position-absolute mt-5">
                         <ul>
+
                             {movies.map((movie) => (
                                 <li
                                     onClick={() => onClick(movie.show.id)}
