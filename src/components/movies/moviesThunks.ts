@@ -5,7 +5,7 @@ import {ApiMovie, ApiMovies, Movie} from "../../types";
 export const fetchMovies = createAsyncThunk<Movie[], string>(
     'movies/fetchMovies',
     async (id) => {
-        const {data: movies} = await axiosApi.get<ApiMovies | null>(`?q=${id}`);
+        const {data: movies} = await axiosApi.get<ApiMovies | null>(`/search/shows?q=${id}`);
         if (movies === null) {
             return [];
         }
@@ -21,8 +21,8 @@ export const fetchMovies = createAsyncThunk<Movie[], string>(
 
 export const fetchOneMovie = createAsyncThunk<ApiMovie, string>(
     'movies/fetchOneMovie',
-    async (id) => {
-        const {data: movie} = await axiosApi.get<ApiMovie | null>(`/${id}`);
+    async (movieId) => {
+        const {data: movie} = await axiosApi.get<ApiMovie | null>(`/shows/${movieId}`);
          if (movie === null) {
              throw new Error('Movie Not Found!');
          }

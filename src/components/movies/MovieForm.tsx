@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchMovies } from "./moviesThunks";
-import { selectMovieItems } from "./moviesSlice";
+import React, {useState} from "react";
+import {useAppDispatch, useAppSelector} from "../../app/hooks";
+import {fetchMovies} from "./moviesThunks";
+import {selectMovieIsSearching, selectMovieItems} from "./moviesSlice";
+import Spinner from "../Spinner/Spinner";
 
 const MovieForm = () => {
     const [search, setSearch] = useState<string>('');
     const dispatch = useAppDispatch();
+    const isSearching = useAppSelector(selectMovieIsSearching);
     const movies = useAppSelector(selectMovieItems);
 
     const onFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { value } = event.target;
+        const {value} = event.target;
         setSearch(value);
 
-        if (value.length > 2) {
+        if (value.length >= 2) {
             dispatch(fetchMovies(value));
         }
     };
 
-    useEffect(() => {
-        if (search.length >= 2) {
-            dispatch(fetchMovies(search));
-        }
-    }, [search, dispatch]);
 
     return (
         <div className="container mt-3">
@@ -34,7 +31,9 @@ const MovieForm = () => {
                     onChange={onFieldChange}
                     placeholder="Search for a movie..."
                 />
-                {search.length >= 2 && (
+                {search.length >= 2 && isSearching ? (
+                    <Spinner/>
+                ) : (
                     <div className="position-absolute mt-5">
                         <ul>
                             {movies.map((movie) => (
