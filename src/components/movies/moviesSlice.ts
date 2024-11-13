@@ -1,10 +1,10 @@
-import {ApiMovie, Movie} from "../../types";
+import {Movie, SearchedMovie} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {fetchMovies, fetchOneMovie} from "./moviesThunks";
 
 interface MoviesState {
-    items: Movie[],
-    oneMovie: ApiMovie | null,
+    items: SearchedMovie[],
+    oneMovie: Movie | null,
     fetchLoading: boolean,
     isSearching: boolean,
 }

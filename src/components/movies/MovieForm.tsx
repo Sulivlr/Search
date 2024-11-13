@@ -44,8 +44,8 @@ const MovieForm = () => {
                         <ul>
                             {movies.map((movie) => (
                                 <li
-                                    onClick={() => onClick(movie.id)}
-                                    key={movie.id}>
+                                    onClick={() => onClick(movie.show.id)}
+                                    key={movie.show.id}>
                                     <h5>{movie.show.name}</h5>
                                 </li>
                             ))}

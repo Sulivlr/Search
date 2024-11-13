@@ -12,22 +12,26 @@ const SingleMovie = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(fetchOneMovie(id));
+        try {
+            dispatch(fetchOneMovie(id));
+        } catch (error) {
+            console.log(error);
+        }
     }, [dispatch, id]);
 
-    if (movies === null) {
+    if (movies === undefined || movies === null) {
         return <Spinner/>;
     }
 
     return (
 
-        <div className="container">
-            <div className="d-flex justify-content-between">
-                <img src={movies.show.image.medium} alt={movies.show.name}/>
-            </div>
+        <div className="container d-flex justify-content-between mt-3">
             <div>
-                <h3>{movies.show.name}</h3>
-                <p>{movies.show.summary}</p>
+                <img src={movies.image.medium} alt="movie image"/>
+            </div>
+            <div className="ms-3">
+                <h3>{movies.name}</h3>
+                <p>{movies.summary.replace(/<\/?[^>]+(>|$)/g, '')}</p>
             </div>
         </div>
     );

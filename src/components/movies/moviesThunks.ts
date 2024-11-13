@@ -1,33 +1,28 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../../axiosApi";
-import {ApiMovie, ApiMovies, Movie} from "../../types";
+import {Movie, SearchedMovie} from "../../types";
 
-export const fetchMovies = createAsyncThunk<Movie[], string>(
+export const fetchMovies = createAsyncThunk<SearchedMovie[], string>(
     'movies/fetchMovies',
     async (id) => {
-        const {data: movies} = await axiosApi.get<ApiMovies | null>(`/search/shows?q=${id}`);
+        const {data: movies} = await axiosApi.get<SearchedMovie[] | null>(`/search/shows?q=${id}`);
         if (movies === null) {
             return [];
         }
-
-        return Object.keys(movies).map((id) => ({
-            id,
-            ...movies[id],
-        }));
+        return movies;
     },
 );
 
 
-export const fetchOneMovie = createAsyncThunk<ApiMovie, string>(
+export const fetchOneMovie = createAsyncThunk<Movie, string>(
     'movies/fetchOneMovie',
-    async (id) => {
-        const { data: movie} = await axiosApi.get<ApiMovie | null>(
+    async (id, thunkAPI) => {
+        const { data: movie} = await axiosApi.get<Movie | null>(
             `/shows/${id}`
         );
 
-
         if (movie === null) {
-            throw new Error('Movie Not Found!');
+            return thunkAPI.rejectWithValue({message: 'Not Found'});
         }
         return movie;
     }
