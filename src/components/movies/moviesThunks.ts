@@ -5,7 +5,7 @@ import {ApiMovie, ApiMovies, Movie} from "../../types";
 export const fetchMovies = createAsyncThunk<Movie[], string>(
     'movies/fetchMovies',
     async (id) => {
-        const {data: movies} = await axiosApi.get<ApiMovies | null>(`/q=${id}`);
+        const {data: movies} = await axiosApi.get<ApiMovies | null>(`?q=${id}`);
         if (movies === null) {
             return [];
         }
@@ -16,6 +16,8 @@ export const fetchMovies = createAsyncThunk<Movie[], string>(
         }));
     },
 );
+
+
 
 export const fetchOneMovie = createAsyncThunk<ApiMovie, string>(
     'movies/fetchOneMovie',

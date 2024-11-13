@@ -4,14 +4,14 @@ import {fetchMovies, fetchOneMovie} from "./moviesThunks";
 
 interface MoviesState {
     items: Movie[],
-    selectMovie: ApiMovie | null
+    oneMovie: ApiMovie | null
     fetchLoading: boolean,
     isSearching: boolean,
 }
 
 const initialState: MoviesState = {
     items: [],
-    selectMovie: null,
+    oneMovie: null,
     fetchLoading: false,
     isSearching: false,
 };
@@ -33,7 +33,7 @@ const movieSlice = createSlice({
         builder.addCase(fetchOneMovie.pending, (state) => {
             state.fetchLoading = true;
         }).addCase(fetchOneMovie.fulfilled, (state, {payload: oneMovie}) => {
-            state.selectMovie = oneMovie;
+            state.oneMovie = oneMovie;
             state.fetchLoading = false;
         }).addCase(fetchOneMovie.rejected, (state) => {
             state.isSearching = false;
@@ -43,7 +43,7 @@ const movieSlice = createSlice({
         selectMovieIsSearching: (state) => state.isSearching,
         selectMovieIsFetching: (state) => state.fetchLoading,
         selectMovieItems: (state) => state.items,
-        selectOneMovie: (state) => state.selectMovie,
+        selectOneMovie: (state) => state.oneMovie,
     }
 });
 
