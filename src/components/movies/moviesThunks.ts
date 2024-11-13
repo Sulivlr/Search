@@ -18,14 +18,17 @@ export const fetchMovies = createAsyncThunk<Movie[], string>(
 );
 
 
-
 export const fetchOneMovie = createAsyncThunk<ApiMovie, string>(
     'movies/fetchOneMovie',
-    async (movieId) => {
-        const {data: movie} = await axiosApi.get<ApiMovie | null>(`/shows/${movieId}`);
-         if (movie === null) {
-             throw new Error('Movie Not Found!');
-         }
-         return movie;
+    async (id) => {
+        const { data: movie} = await axiosApi.get<ApiMovie | null>(
+            `/shows/${id}`
+        );
+
+
+        if (movie === null) {
+            throw new Error('Movie Not Found!');
+        }
+        return movie;
     }
 );

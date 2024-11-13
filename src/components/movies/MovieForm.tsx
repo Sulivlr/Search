@@ -3,9 +3,11 @@ import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {fetchMovies} from "./moviesThunks";
 import {selectMovieIsSearching, selectMovieItems} from "./moviesSlice";
 import Spinner from "../Spinner/Spinner";
+import {useNavigate} from "react-router-dom";
 
 const MovieForm = () => {
     const [search, setSearch] = useState<string>('');
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const isSearching = useAppSelector(selectMovieIsSearching);
     const movies = useAppSelector(selectMovieItems);
@@ -17,6 +19,10 @@ const MovieForm = () => {
         if (value.length >= 2) {
             dispatch(fetchMovies(value));
         }
+    };
+
+    const onClick = (id: string) => {
+        navigate(`/shows/${id}`);
     };
 
 
@@ -37,7 +43,9 @@ const MovieForm = () => {
                     <div className="position-absolute mt-5">
                         <ul>
                             {movies.map((movie) => (
-                                <li key={movie.id}>
+                                <li
+                                    onClick={() => onClick(movie.id)}
+                                    key={movie.id}>
                                     <h5>{movie.show.name}</h5>
                                 </li>
                             ))}

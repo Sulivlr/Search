@@ -4,7 +4,7 @@ import {fetchMovies, fetchOneMovie} from "./moviesThunks";
 
 interface MoviesState {
     items: Movie[],
-    oneMovie: ApiMovie | null
+    oneMovie: ApiMovie | null,
     fetchLoading: boolean,
     isSearching: boolean,
 }
@@ -36,7 +36,7 @@ const movieSlice = createSlice({
             state.oneMovie = oneMovie;
             state.fetchLoading = false;
         }).addCase(fetchOneMovie.rejected, (state) => {
-            state.isSearching = false;
+            state.fetchLoading = false;
         });
     },
     selectors: {
